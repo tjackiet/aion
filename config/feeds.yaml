@@ -1,0 +1,36 @@
+# AION RSS Feed Configuration
+# 対象メディア（6件）
+
+feeds:
+  # ビジネス系
+  - name: "ITmedia AI+"
+    url: "https://rss.itmedia.co.jp/rss/2.0/aiplus.xml"
+    category: "business"
+    enabled: true
+
+  # 開発・技術系
+  - name: "Zenn"
+    url: "https://zenn.dev/feed"
+    category: "tech"
+    enabled: true
+
+  - name: "はてなブックマーク（テクノロジー）"
+    url: "https://b.hatena.ne.jp/hotentry/it.rss"
+    category: "tech"
+    enabled: true
+
+  - name: "テクノエッジ"
+    url: "https://www.techno-edge.net/rss20/index.rdf"
+    category: "tech"
+    enabled: true
+
+  - name: "Google Cloud Japan ブログ"
+    url: "https://cloud.google.com/blog/ja/rss"
+    category: "tech"
+    enabled: true
+
+  # 研究論文系（arXiv AI分野）
+  - name: "arXiv CS.AI"
+    url: "https://rss.arxiv.org/rss/cs.AI"
+    category: "research"
+    enabled: true

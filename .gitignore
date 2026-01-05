@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Environment variables
+.env
+.env.local
+
+# Output files
+outputs/*.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# MCP auth cache (contains tokens)
+.mcp-auth/
