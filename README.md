@@ -8,7 +8,7 @@ AION（AI-Oriented News aggregator）は、複数のRSSフィードからAI関�
 
 ## 参考
 
-本プロジェクトは以下の記事を参考に作成しました：
+本ツールは以下の記事を参考に作成しました：
 
 - [AI系の情報収集手法を紹介（ビジネス・開発・研究）【2025年版】](https://zenn.dev/mkj/articles/1357a7ea2970c4) （小川 雄太郎さん）
 
