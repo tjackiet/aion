@@ -22,6 +22,11 @@ AION（AI-Oriented News aggregator）は、複数のRSSフィードからAI関�
 
 ## セットアップ
 
+### 前提条件
+
+- Python 3.11 以上
+- Node.js（`--publish` での Notion 書き出しに `npx` を使用）
+
 ```bash
 pip install -e .
 ```
