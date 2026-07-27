@@ -36,7 +36,7 @@ def summarize_article(article: Article, client: anthropic.Anthropic, prompts: di
     )
 
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-sonnet-5",
         max_tokens=1024,
         system=prompt_config["system"],
         messages=[{"role": "user", "content": user_prompt}],
