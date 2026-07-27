@@ -1,6 +1,7 @@
 """AION データモデル定義"""
 
 from datetime import datetime
+
 from pydantic import BaseModel, Field
 
 
@@ -18,6 +19,10 @@ class Article(BaseModel):
     # LLM生成フィールド
     ai_summary: str | None = Field(None, description="AI生成要約")
     why_it_matters: str | None = Field(None, description="Why it matters")
+
+    # 選定ロジックの可視化用フィールド（--explain で利用）
+    matched_keywords: list[str] = Field(default_factory=list, description="マッチしたAIキーワード")
+    excluded_reason: str | None = Field(None, description="選定から除外された理由（通過時はNone）")
 
 
 class FeedConfig(BaseModel):

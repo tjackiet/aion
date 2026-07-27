@@ -2,10 +2,10 @@
 
 import typer
 
-from aion.collector import collect
 from aion.processor import summarize_articles
-from aion.reporter import generate_report, save_report
 from aion.publisher import publish_to_notion_sync
+from aion.reporter import generate_report, save_report
+from aion.selector import collect, explain_selection
 
 app = typer.Typer(help="AION - AI分野のニュース収集・要約ツール")
 
@@ -55,8 +55,20 @@ def run(
 @app.command()
 def collect_cmd(
     days: int = typer.Option(1, "--days", "-d", help="取得する日数"),
+    explain: bool = typer.Option(False, "--explain", help="記事ごとに通過/除外の理由を表示"),
 ):
     """RSSフィードから記事を収集"""
+    if explain:
+        articles = explain_selection(days=days)
+        for article in articles:
+            status = "通過" if article.excluded_reason is None else f"除外: {article.excluded_reason}"
+            keywords = ", ".join(article.matched_keywords) if article.matched_keywords else "-"
+            typer.echo(f"[{status}] {article.source} | {article.title[:60]} | matched: {keywords}")
+
+        passed = sum(1 for a in articles if a.excluded_reason is None)
+        typer.echo(f"\n合計 {len(articles)} 件 / 通過 {passed} 件")
+        return
+
     articles = collect(days=days)
     typer.echo(f"\n取得完了: {len(articles)} 件")
 

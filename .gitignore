@@ -29,3 +29,6 @@ Thumbs.db
 
 # MCP auth cache (contains tokens)
 .mcp-auth/
+
+# Claude Code local settings (may contain secrets)
+.claude/
