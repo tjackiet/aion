@@ -1,3 +1,3 @@
-from .rss import collect, fetch_all_feeds, filter_recent_articles, filter_today_articles
+from .rss import collect, count_undated_by_source, fetch_all_feeds, filter_recent_articles
 
-__all__ = ["collect", "fetch_all_feeds", "filter_today_articles", "filter_recent_articles"]
+__all__ = ["collect", "count_undated_by_source", "fetch_all_feeds", "filter_recent_articles"]
