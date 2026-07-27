@@ -1,6 +1,6 @@
 """RSS フィード収集モジュール"""
 
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -44,11 +44,15 @@ def load_feeds_config(config_path: Path | None = None) -> FeedsConfig:
 
 
 def parse_published_date(entry: dict) -> datetime | None:
-    """RSSエントリから公開日時をパース"""
+    """RSSエントリから公開日時をパース
+
+    feedparser の published_parsed / updated_parsed は UTC に正規化された
+    time.struct_time を返す。UTCとして解釈してからJSTに変換する。
+    """
     if hasattr(entry, "published_parsed") and entry.published_parsed:
-        return datetime(*entry.published_parsed[:6], tzinfo=JST)
+        return datetime(*entry.published_parsed[:6], tzinfo=UTC).astimezone(JST)
     if hasattr(entry, "updated_parsed") and entry.updated_parsed:
-        return datetime(*entry.updated_parsed[:6], tzinfo=JST)
+        return datetime(*entry.updated_parsed[:6], tzinfo=UTC).astimezone(JST)
     return None
 
 
@@ -98,10 +102,16 @@ def fetch_all_feeds(config_path: Path | None = None) -> list[Article]:
     return all_articles
 
 
-def filter_today_articles(articles: list[Article]) -> list[Article]:
-    """当日の記事のみをフィルタリング"""
-    today = datetime.now(JST).date()
-    return [a for a in articles if a.published and a.published.date() == today]
+def count_undated_by_source(articles: list[Article]) -> dict[str, int]:
+    """公開日時をパースできなかった記事数を情報源ごとに集計
+
+    日付フィルタはこれらを黙って除外するため、件数を可視化する。
+    """
+    counts: dict[str, int] = {}
+    for article in articles:
+        if article.published is None:
+            counts[article.source] = counts.get(article.source, 0) + 1
+    return counts
 
 
 def filter_recent_articles(articles: list[Article], days: int = 1) -> list[Article]:
@@ -126,6 +136,11 @@ def collect(days: int = 1, ai_filter: bool = True) -> list[Article]:
     print(f"RSSフィードを取得中...")
     articles = fetch_all_feeds()
     print(f"合計 {len(articles)} 件の記事を取得")
+
+    undated = count_undated_by_source(articles)
+    if undated:
+        detail = ", ".join(f"{source} {count}件" for source, count in undated.items())
+        print(f"⚠ 公開日時を取得できず除外: {sum(undated.values())} 件（{detail}）")
 
     filtered = filter_recent_articles(articles, days=days)
     print(f"直近{days}日間の記事: {len(filtered)} 件")
