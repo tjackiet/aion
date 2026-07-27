@@ -1,6 +1,6 @@
-"""RSS フィード収集モジュール"""
+"""RSS フィード取得モジュール（取得I/Oのみ。選定ロジックは aion.selector 参照）"""
 
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -12,24 +12,6 @@ from aion.models import Article, FeedConfig, FeedsConfig
 
 JST = ZoneInfo("Asia/Tokyo")
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
-
-# AI関連キーワード（タイトルフィルタ用）
-AI_KEYWORDS = [
-    # 基本用語
-    "AI", "人工知能", "機械学習", "ディープラーニング", "深層学習",
-    # LLM関連
-    "LLM", "大規模言語モデル", "GPT", "Claude", "Gemini", "ChatGPT",
-    "生成AI", "生成系AI", "Copilot", "RAG",
-    # エージェント
-    "AIエージェント", "エージェント", "Agent",
-    # 技術用語
-    "プロンプト", "ファインチューニング", "トランスフォーマー",
-    "ニューラルネットワーク", "自然言語処理", "NLP",
-    # サービス・企業
-    "OpenAI", "Anthropic", "DeepMind", "Hugging Face",
-    # 応用分野
-    "画像生成", "音声認識", "自動運転", "ロボット",
-]
 
 
 def load_feeds_config(config_path: Path | None = None) -> FeedsConfig:
@@ -100,53 +82,3 @@ def fetch_all_feeds(config_path: Path | None = None) -> list[Article]:
             print(f"✗ {feed_config.name}: エラー - {e}")
 
     return all_articles
-
-
-def count_undated_by_source(articles: list[Article]) -> dict[str, int]:
-    """公開日時をパースできなかった記事数を情報源ごとに集計
-
-    日付フィルタはこれらを黙って除外するため、件数を可視化する。
-    """
-    counts: dict[str, int] = {}
-    for article in articles:
-        if article.published is None:
-            counts[article.source] = counts.get(article.source, 0) + 1
-    return counts
-
-
-def filter_recent_articles(articles: list[Article], days: int = 1) -> list[Article]:
-    """直近N日間の記事をフィルタリング"""
-    cutoff = datetime.now(JST) - timedelta(days=days)
-    return [a for a in articles if a.published and a.published >= cutoff]
-
-
-def filter_ai_related(articles: list[Article]) -> list[Article]:
-    """AI関連の記事のみをフィルタリング（タイトルベース）"""
-    def is_ai_related(article: Article) -> bool:
-        title = article.title.upper()
-        summary = (article.summary or "").upper()
-        text = title + " " + summary
-        return any(kw.upper() in text for kw in AI_KEYWORDS)
-
-    return [a for a in articles if is_ai_related(a)]
-
-
-def collect(days: int = 1, ai_filter: bool = True) -> list[Article]:
-    """メイン収集関数: フィード取得 + フィルタリング"""
-    print(f"RSSフィードを取得中...")
-    articles = fetch_all_feeds()
-    print(f"合計 {len(articles)} 件の記事を取得")
-
-    undated = count_undated_by_source(articles)
-    if undated:
-        detail = ", ".join(f"{source} {count}件" for source, count in undated.items())
-        print(f"⚠ 公開日時を取得できず除外: {sum(undated.values())} 件（{detail}）")
-
-    filtered = filter_recent_articles(articles, days=days)
-    print(f"直近{days}日間の記事: {len(filtered)} 件")
-
-    if ai_filter:
-        filtered = filter_ai_related(filtered)
-        print(f"AI関連記事: {len(filtered)} 件")
-
-    return filtered

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0">
+<channel>
+<title>ITmedia AI＋ 最新記事一覧</title>
+<link>https://www.itmedia.co.jp/aiplus/</link>
+<description>ITmedia AI＋ の最新記事一覧です。</description>
+<language>ja</language>
+<copyright>Copyright (c) 2026 ITmedia, Inc. All Rights Reserved.</copyright>
+<pubDate>Mon, 27 Jul 2026 22:25:00 +0900</pubDate>
+<item>
+<title>NVIDIA、「オープンなAIセキュリティ」掲げる業界連合　Microsoftなど30社超が参加</title>
+<link>https://www.itmedia.co.jp/aiplus/article/2607/27/2000000224/</link>
+<description>米NVIDIAは、AIセキュリティ向けのオープンな技術を開発・共有する業界連合「Open Secure AI Alliance」を設立すると発表した。</description>
+<pubDate>Mon, 27 Jul 2026 19:42:07 +0900</pubDate>
+</item>
+<item>
+<title>Z世代に聞く次の流行、「AIイラスト」が1位に　「Claude Code」も上位</title>
+<link>https://www.itmedia.co.jp/news/articles/2607/27/news092.html</link>
+<description>2026年も下半期を迎え、「Z世代」の若者たちがこれから流行ると思うものについて、市場調査会社のアスマーク（東京都渋谷区）などがインターネットでアンケートを実施した。</description>
+<pubDate>Mon, 27 Jul 2026 19:00:00 +0900</pubDate>
+</item>
+<item>
+<title>検索結果に「詐欺ではありません」と表示させる詐欺手口、警視庁が注意喚起　AI要約も餌食に</title>
+<link>https://www.itmedia.co.jp/news/articles/2607/27/news076.html</link>
+<description>警視庁は、SNS型投資詐欺グループがWeb検索の仕組みを悪用し、検索結果に肯定的な情報を並べ、AI要約にも「詐欺ではありません」と表示させる手口を確認した。</description>
+<pubDate>Mon, 27 Jul 2026 19:00:00 +0900</pubDate>
+</item>
+<item>
+<title>MIXI、新卒エンジニア向け研修資料＆動画を無料公開　「実践的なAI活用術」を12科目で紹介</title>
+<link>https://www.itmedia.co.jp/aiplus/article/2607/27/2000000223/</link>
+<description>MIXIは、2026年度入社の新卒エンジニア向けに実施した技術研修の資料とアーカイブ動画を公開した。全12科目を通じ、業務におけるAIの活用法などを紹介している。</description>
+<pubDate>Mon, 27 Jul 2026 15:08:15 +0900</pubDate>
+</item>
+<item>
+<title>NVIDIA、Microsoft、OpenAIなどがオープンモデル規制反対を表明　Anthropic従業員は「CUDAのオープンソース化が楽しみ」と皮肉</title>
+<link>https://www.itmedia.co.jp/aiplus/article/2607/27/2000000222/</link>
+<description>NVIDIAやMicrosoftなどの企業・団体がオープンモデル規制に反対する共同声明を発表。各社CEOが賛同する一方、Anthropic従業員は「CUDAやWindowsのオープンソース化が楽しみだ」と皮肉った。</description>
+<pubDate>Mon, 27 Jul 2026 13:40:13 +0900</pubDate>
+</item>
+<item>
+<title>AIエージェントと共に働くリスクとは？　PwCが説く「実践的ガバナンス」から考察</title>
+<link>https://www.itmedia.co.jp/enterprise/articles/2607/27/news049.html</link>
+<description>AIエージェントを安心・安全に活用するためのリスク管理とはどのようなものか。PwCコンサルティングは、サイバーセキュリティにとどまらない、包括的なリスク管理の必要性を説く。今回は、この話から、AIエージェントと共に働くリスクについて考察する。</description>
+<pubDate>Mon, 27 Jul 2026 12:00:00 +0900</pubDate>
+</item>
+<item>
+<title>スマホ映像から最短1分で高精細3Dモデル、NECが生成技術を開発</title>
+<link>https://monoist.itmedia.co.jp/mn/articles/2607/27/news011.html</link>
+<description>NECは、スマートフォンなどの汎用カメラで撮影した映像から、高精細な3Dモデルを最短1分ほどで生成する技術を開発した。独自のAIが人物や一時的な障害物を自動で除去し、周囲の映像を基に背景を補完する。</description>
+<pubDate>Mon, 27 Jul 2026 09:00:00 +0900</pubDate>
+</item>
+<item>
+<title>「iPhone高騰」はこれからも続く？　中国CXMTに近づくApple、メモリ競合へのけん制が不発に終わりそうなワケ【後編】</title>
+<link>https://www.itmedia.co.jp/news/articles/2607/27/news021.html</link>
+<description>前編「Appleはもう『メモリのお得意様』ではない？　NVIDIAだけでiPhone数億台分、苦境に陥った”買いたたき王者”のいま」では、米Appleによる中華メモリメーカー・CXMTへの接近と、その対応にはあまり意味がないのでは？　という疑問を述べた。後編では筆者がそう考える背景をご紹介したい。</description>
+<pubDate>Mon, 27 Jul 2026 07:00:00 +0900</pubDate>
+</item>
+<item>
+<title>法人被害45億円、元警視庁が解説「会話もできるAI詐欺」の手口と対策</title>
+<link>https://kn.itmedia.co.jp/kn/articles/2607/27/news029.html</link>
+<description>生成AIによる音声合成の進化で、経営者や上司の声が数秒で複製される時代が訪れた。元警視庁職員やAI音声開発企業のCEOなど3人の専門家が、実演で脅威を体感させながら、最新のボイスフィッシングの手口と、組織が今すぐ取るべき備えを示した。</description>
+<pubDate>Mon, 27 Jul 2026 07:00:00 +0900</pubDate>
+</item>
+<item>
+<title>MicrosoftやNVIDIAなど、AIのオープンウェイト規制に反対する書簡を公開――Anthropicは署名せず</title>
+<link>https://www.itmedia.co.jp/news/articles/2607/26/news014.html</link>
+<description>MicrosoftやNVIDIA、Metaなど30社以上の米国の企業や団体が、オープンウェイトAIモデルへの過度な規制回避を求める共同書簡を公開した。オープンモデルをAIエコシステムの基盤と位置付け、開発や評価におけるメリットとイノベーション促進を強調。中国企業の急速な台頭や技術流出を懸念する政権の規制動向に対し牽制を図る。</description>
+<pubDate>Sun, 26 Jul 2026 06:51:00 +0900</pubDate>
+</item>
+<item>
+<title>Anthropic、「Claude Opus 5」公開　Fable 5に迫る性能を半額で――サイバー安全策は緩和、拒否時は自動フォールバックも</title>
+<link>https://www.itmedia.co.jp/news/articles/2607/25/news016.html</link>
+<description>Anthropicは、最新LLM「Claude Opus 5」を公開した。上位モデル「Claude Fable 5」に迫る知能を半額の価格で提供する。プログラミングやナレッジワークにおいて高い評価を獲得し、推論の深さを調整するパラメータや安全性分類器に連動する自動フォールバック機能などを備える。</description>
+<pubDate>Sat, 25 Jul 2026 07:28:00 +0900</pubDate>
+</item>
+<item>
+<title>スーパーに並んだ「ごちゃごちゃ生成AIポップ」が物議　“看板王”こと、きぬた歯科院長「これはアリ」</title>
+<link>https://www.itmedia.co.jp/news/articles/2607/24/news094.html</link>
+<description>スーパーの青果売り場に並ぶ、生成AIで作ったとみられる派手な商品ポップがXで物議を醸している。吸血鬼や戦国武将を描いたデザインに「見づらい」との声が相次ぐ中、看板広告で知られるきぬた歯科のきぬた泰和院長は「これはアリ」と評価。その理由とは。</description>
+<pubDate>Fri, 24 Jul 2026 19:20:00 +0900</pubDate>
+</item>
+<item>
+<title>近畿大、入試にAIの利用認める　情報学部の総合型選抜で</title>
+<link>https://www.itmedia.co.jp/aiplus/article/2607/24/2000000221/</link>
+<description>近畿大学は、2027年度の情報学部の総合型選抜入学試験で、生成AIの利用を認めると発表した。提出する自己PR動画やプレゼンテーション資料などでのAIの利用方針を明示した。</description>
+<pubDate>Fri, 24 Jul 2026 17:45:19 +0900</pubDate>
+</item>
+<item>
+<title>AIにもサプライチェーン管理が必要？　中国AI「Kimi K3」を巡る批判でAIの調達リスクが浮き彫りに</title>
+<link>https://atmarkit.itmedia.co.jp/ait/articles/2607/24/news054.html</link>
+<description>中国の最新AIモデルを巡り、米政府高官が、Anthropicの「Claude Fable 5」をモデルの学習に利用した“不正蒸留”が行われていたと指摘した。AIモデルの調達や導入を巡るサプライチェーンリスクが浮き彫りとなっている。</description>
+<pubDate>Fri, 24 Jul 2026 17:30:00 +0900</pubDate>
+</item>
+<item>
+<title>メルカリ、「AI活用の最前線」明かす動画公開　「なぜCTOがCHRO兼CAIOになったのか」など13本</title>
+<link>https://www.itmedia.co.jp/aiplus/article/2607/24/2000000220/</link>
+<description>メルカリは、自社のAI活用について紹介する動画を公開した。7月8日に開催したイベント「Mercari AI Career Fes 2026」で実施したセッションのアーカイブ動画、全13本を公式YouTubeチャンネルで視聴できる。</description>
+<pubDate>Fri, 24 Jul 2026 15:23:26 +0900</pubDate>
+</item>
+<item>
+<title>海外の「Claude」や「GPT」ではダメなのか　日本企業向けai&amp;、そのメリットは？</title>
+<link>https://atmarkit.itmedia.co.jp/ait/articles/2607/24/news052.html</link>
+<description>ai&amp;は、日本企業向けに設計したAI推論プラットフォーム「ai&amp; Inference」の提供を開始した。ClaudeやGPTなど海外ベンダーのAIに代わる選択肢として、AI利用コストを大幅に削減できるとしている。</description>
+<pubDate>Fri, 24 Jul 2026 13:00:00 +0900</pubDate>
+</item>
+<item>
+<title>開発工数見積もりの「負担が重い」をAIで解消へ　明治安田はどう実現？</title>
+<link>https://atmarkit.itmedia.co.jp/ait/articles/2607/24/news050.html</link>
+<description>有識者に頼りがちなシステム開発工数の見積もりは、AIエージェントでどこまで効率化できるのか。明治安田生命保険がPoCで検証した仕組みを見ていこう。</description>
+<pubDate>Fri, 24 Jul 2026 13:00:00 +0900</pubDate>
+</item>
+<item>
+<title>「2日かかる攻撃が25分に」生成AIで“爆速化”するサイバー攻撃、パロアルトの識者が警鐘</title>
+<link>https://www.itmedia.co.jp/news/articles/2607/24/news070.html</link>
+<description>パロアルトネットワークスの染谷征良氏（チーフサイバーセキュリティストラテジスト）は、生成AIの普及で変化するサイバー攻撃の動向と企業に求められるセキュリティ対策を、ソフトバンクの年次イベント「SoftBank World 2026」の講演で紹介した。</description>
+<pubDate>Fri, 24 Jul 2026 12:28:00 +0900</pubDate>
+</item>
+<item>
+<title>Microsoft、GitHub CopilotやExcelで自社AIに切り替えへ――OpenAIやAnthropicのモデルは「引き続き併用」</title>
+<link>https://www.itmedia.co.jp/aiplus/article/2607/24/2000000219/</link>
+<description>Microsoftは、GitHub CopilotやExcelで自社開発AIモデル「MAI」シリーズの本格導入を開始したと発表した。既存のフロンティアモデルと併用しつつ、高頻度なタスクを低コストな自社モデルへ振り分けることでコストパフォーマンスを向上させる。今後も他サービスへ同様のアプローチを拡大する方針だ。</description>
+<pubDate>Fri, 24 Jul 2026 12:03:56 +0900</pubDate>
+</item>
+<item>
+<title>AIは“声で操作”する時代に？　ChatGPTとClaude、相次ぎ音声機能を強化</title>
+<link>https://www.itmedia.co.jp/aiplus/article/2607/24/2000000218/</link>
+<description>米OpenAIと米Anthropicが相次いで自社AIサービスの音声機能を強化した。</description>
+<pubDate>Fri, 24 Jul 2026 11:15:46 +0900</pubDate>
+</item>
+</channel>
+</rss>
