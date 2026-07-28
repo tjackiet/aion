@@ -23,6 +23,7 @@ class Article(BaseModel):
     # 選定ロジックの可視化用フィールド（--explain で利用）
     matched_keywords: list[str] = Field(default_factory=list, description="マッチしたAIキーワード")
     excluded_reason: str | None = Field(None, description="選定から除外された理由（通過時はNone）")
+    score: float = Field(0.0, description="選定スコア（大きいほど優先。aion.selector.scoring 参照）")
 
 
 class FeedConfig(BaseModel):

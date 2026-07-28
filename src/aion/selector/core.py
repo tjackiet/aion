@@ -10,6 +10,8 @@ from aion.selector.filters import (
     filter_recent_articles,
     matched_ai_keywords,
 )
+from aion.selector.ranking import rank_articles
+from aion.selector.scoring import score_articles
 
 REASON_NO_DATE = "日付なし"
 REASON_NO_AI_KEYWORD = "AIキーワード不一致"
@@ -38,13 +40,15 @@ def collect(days: int = 1, ai_filter: bool = True) -> list[Article]:
     filtered = filter_recent_articles(articles, days=days)
     print(f"直近{days}日間の記事: {len(filtered)} 件")
 
+    exempt = keyword_filter_exempt_sources()
+
     if ai_filter:
-        exempt = keyword_filter_exempt_sources()
         filtered = filter_ai_related(filtered, exempt_sources=exempt)
         detail = f"（{', '.join(sorted(exempt))} はキーワードフィルタ免除）" if exempt else ""
         print(f"AI関連記事: {len(filtered)} 件{detail}")
 
-    return filtered
+    score_articles(filtered, exempt_sources=exempt)
+    return rank_articles(filtered)
 
 
 def explain_selection(days: int = 1) -> list[Article]:
@@ -56,6 +60,7 @@ def explain_selection(days: int = 1) -> list[Article]:
     articles = fetch_all_feeds()
     recent_ids = {id(a) for a in filter_recent_articles(articles, days=days)}
     exempt = keyword_filter_exempt_sources()
+    score_articles(articles, exempt_sources=exempt)
 
     for article in articles:
         article.matched_keywords = matched_ai_keywords(article)

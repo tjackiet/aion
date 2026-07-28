@@ -5,7 +5,14 @@ import typer
 from aion.processor import summarize_articles
 from aion.publisher import publish_to_notion_sync
 from aion.reporter import generate_report, save_report
-from aion.selector import collect, explain_selection, keyword_filter_exempt_sources
+from aion.selector import (
+    DEFAULT_MAX_ARTICLES,
+    category_breakdown,
+    collect,
+    explain_selection,
+    keyword_filter_exempt_sources,
+    select_for_summary,
+)
 
 app = typer.Typer(help="AION - AI分野のニュース収集・要約ツール")
 
@@ -13,7 +20,9 @@ app = typer.Typer(help="AION - AI分野のニュース収集・要約ツール")
 @app.command()
 def run(
     days: int = typer.Option(1, "--days", "-d", help="取得する日数"),
-    max_articles: int = typer.Option(10, "--max", "-m", help="要約する最大記事数"),
+    max_articles: int = typer.Option(
+        DEFAULT_MAX_ARTICLES, "--max", "-m", help="要約する最大記事数"
+    ),
     publish: bool = typer.Option(False, "--publish", "-p", help="Notionに書き出す"),
 ):
     """全工程を実行: RSS取得 → 要約 → レポート生成 → (オプション)Notion書き出し"""
@@ -31,7 +40,10 @@ def run(
 
     # Step 2: 要約生成
     typer.echo("\n[2/4] 要約生成...")
-    summarized = summarize_articles(articles, max_articles=max_articles)
+    selected = select_for_summary(articles, max_articles=max_articles)
+    breakdown = ", ".join(f"{cat} {n}件" for cat, n in sorted(category_breakdown(selected).items()))
+    typer.echo(f"要約対象を選定: {len(selected)} 件（{breakdown}）")
+    summarized = summarize_articles(selected)
 
     # Step 3: レポート生成・保存
     typer.echo("\n[3/4] レポート生成...")
@@ -70,7 +82,10 @@ def collect_cmd(
                 keywords = "-（キーワードフィルタ免除）"
             else:
                 keywords = "-"
-            typer.echo(f"[{status}] {article.source} | {article.title[:60]} | matched: {keywords}")
+            typer.echo(
+                f"[{status}] score={article.score:5.1f} | {article.source} "
+                f"| {article.title[:60]} | matched: {keywords}"
+            )
 
         passed = sum(1 for a in articles if a.excluded_reason is None)
         typer.echo(f"\n合計 {len(articles)} 件 / 通過 {passed} 件")
@@ -83,11 +98,14 @@ def collect_cmd(
 @app.command()
 def report(
     days: int = typer.Option(1, "--days", "-d", help="取得する日数"),
-    max_articles: int = typer.Option(10, "--max", "-m", help="要約する最大記事数"),
+    max_articles: int = typer.Option(
+        DEFAULT_MAX_ARTICLES, "--max", "-m", help="要約する最大記事数"
+    ),
 ):
     """レポートを生成して保存"""
     articles = collect(days=days)
-    summarized = summarize_articles(articles, max_articles=max_articles)
+    selected = select_for_summary(articles, max_articles=max_articles)
+    summarized = summarize_articles(selected)
     report_content = generate_report(summarized)
     filepath = save_report(report_content)
     typer.echo(f"レポート保存先: {filepath}")

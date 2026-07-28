@@ -50,10 +50,17 @@ def filter_recent_articles(articles: list[Article], days: int = 1) -> list[Artic
     return [a for a in articles if a.published and a.published >= cutoff]
 
 
+def matched_keywords_in_text(text: str) -> list[str]:
+    """任意のテキスト中でマッチしたAIキーワード一覧を返す
+
+    スコアリングがタイトル中のマッチと概要中のマッチを区別するために使う。
+    """
+    return [kw for kw, pattern in _KEYWORD_PATTERNS if pattern.search(text)]
+
+
 def matched_ai_keywords(article: Article) -> list[str]:
     """記事のタイトル・概要中でマッチしたAIキーワード一覧を返す（空ならAI関連ではない）"""
-    text = article.title + " " + (article.summary or "")
-    return [kw for kw, pattern in _KEYWORD_PATTERNS if pattern.search(text)]
+    return matched_keywords_in_text(article.title + " " + (article.summary or ""))
 
 
 def filter_ai_related(

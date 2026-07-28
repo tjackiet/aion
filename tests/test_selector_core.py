@@ -30,6 +30,19 @@ def test_collect_skips_keyword_filter_when_ai_filter_false(make_article, monkeyp
     assert result == [recent_non_ai]
 
 
+def test_collect_returns_articles_in_score_order(make_article, monkeypatch):
+    """collect がスコアを付与し降順で返すこと（要約枠の切り出しは select_for_summary 側）。"""
+    weak = make_article(title="ロボットの話", published_offset=timedelta(hours=-1))
+    strong = make_article(title="AnthropicとOpenAIの新モデル", published_offset=timedelta(hours=-1))
+
+    monkeypatch.setattr("aion.selector.core.fetch_all_feeds", lambda: [weak, strong])
+
+    result = collect(days=1)
+
+    assert result == [strong, weak]
+    assert strong.score > weak.score > 0
+
+
 def test_keyword_filter_exempt_sources_reads_feeds_yaml(tmp_path):
     config = tmp_path / "feeds.yaml"
     config.write_text(
