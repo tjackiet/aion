@@ -35,7 +35,7 @@ MVPとして達成すべき機能：
 |----------|------|------|
 | 言語 | Python 3.11+ | LLM連携・データ処理に最適 |
 | RSS取得 | feedparser | 定番ライブラリ、安定性高い |
-| LLM | Claude API (claude-sonnet-4-20250514) | 高品質な要約生成 |
+| LLM | Claude API (claude-sonnet-5) | 高品質な要約生成 |
 | MCP連携 | mcp-python-sdk | Notion/Docbase連携 |
 | 設定管理 | YAML + pydantic | 型安全な設定管理 |
 | CLI | typer | モダンなCLIフレームワーク |
