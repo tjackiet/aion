@@ -32,6 +32,9 @@ class FeedConfig(BaseModel):
     url: str
     category: str
     enabled: bool = True
+    # フィード自体がAI分野に限定されている場合は False にする。
+    # その情報源はAIキーワードフィルタを適用せず全件通過させる（日付フィルタは適用される）。
+    ai_filter: bool = True
 
 
 class FeedsConfig(BaseModel):

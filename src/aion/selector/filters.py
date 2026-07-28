@@ -56,6 +56,14 @@ def matched_ai_keywords(article: Article) -> list[str]:
     return [kw for kw, pattern in _KEYWORD_PATTERNS if pattern.search(text)]
 
 
-def filter_ai_related(articles: list[Article]) -> list[Article]:
-    """AI関連の記事のみをフィルタリング（タイトルベース）"""
-    return [a for a in articles if matched_ai_keywords(a)]
+def filter_ai_related(
+    articles: list[Article],
+    exempt_sources: frozenset[str] = frozenset(),
+) -> list[Article]:
+    """AI関連の記事のみをフィルタリング（タイトルベース）
+
+    exempt_sources に名前が含まれる情報源はキーワードフィルタを適用せず全件通過させる。
+    arXiv CS.AI のように「配信元がすでにAI分野で絞り込んでいる」フィードでは、
+    キーワードの網羅性がそのまま取りこぼしになるため、フィルタ自体が不適切な道具になる。
+    """
+    return [a for a in articles if a.source in exempt_sources or matched_ai_keywords(a)]

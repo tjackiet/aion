@@ -5,7 +5,7 @@ import typer
 from aion.processor import summarize_articles
 from aion.publisher import publish_to_notion_sync
 from aion.reporter import generate_report, save_report
-from aion.selector import collect, explain_selection
+from aion.selector import collect, explain_selection, keyword_filter_exempt_sources
 
 app = typer.Typer(help="AION - AI分野のニュース収集・要約ツール")
 
@@ -60,9 +60,16 @@ def collect_cmd(
     """RSSフィードから記事を収集"""
     if explain:
         articles = explain_selection(days=days)
+        exempt = keyword_filter_exempt_sources()
         for article in articles:
             status = "通過" if article.excluded_reason is None else f"除外: {article.excluded_reason}"
-            keywords = ", ".join(article.matched_keywords) if article.matched_keywords else "-"
+            if article.matched_keywords:
+                keywords = ", ".join(article.matched_keywords)
+            elif article.source in exempt:
+                # キーワード0件でも通過した理由が読み取れるようにする
+                keywords = "-（キーワードフィルタ免除）"
+            else:
+                keywords = "-"
             typer.echo(f"[{status}] {article.source} | {article.title[:60]} | matched: {keywords}")
 
         passed = sum(1 for a in articles if a.excluded_reason is None)

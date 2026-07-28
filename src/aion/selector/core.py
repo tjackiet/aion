@@ -1,6 +1,8 @@
 """記事選定のオーケストレーション"""
 
-from aion.collector import fetch_all_feeds
+from pathlib import Path
+
+from aion.collector import fetch_all_feeds, load_feeds_config
 from aion.models import Article
 from aion.selector.filters import (
     count_undated_by_source,
@@ -11,6 +13,15 @@ from aion.selector.filters import (
 
 REASON_NO_DATE = "日付なし"
 REASON_NO_AI_KEYWORD = "AIキーワード不一致"
+
+
+def keyword_filter_exempt_sources(config_path: Path | None = None) -> frozenset[str]:
+    """AIキーワードフィルタを適用しない情報源名の集合を feeds.yaml から得る
+
+    feeds.yaml の ai_filter: false が付いたフィードが対象。
+    """
+    config = load_feeds_config(config_path)
+    return frozenset(feed.name for feed in config.feeds if not feed.ai_filter)
 
 
 def collect(days: int = 1, ai_filter: bool = True) -> list[Article]:
@@ -28,8 +39,10 @@ def collect(days: int = 1, ai_filter: bool = True) -> list[Article]:
     print(f"直近{days}日間の記事: {len(filtered)} 件")
 
     if ai_filter:
-        filtered = filter_ai_related(filtered)
-        print(f"AI関連記事: {len(filtered)} 件")
+        exempt = keyword_filter_exempt_sources()
+        filtered = filter_ai_related(filtered, exempt_sources=exempt)
+        detail = f"（{', '.join(sorted(exempt))} はキーワードフィルタ免除）" if exempt else ""
+        print(f"AI関連記事: {len(filtered)} 件{detail}")
 
     return filtered
 
@@ -42,6 +55,7 @@ def explain_selection(days: int = 1) -> list[Article]:
     """
     articles = fetch_all_feeds()
     recent_ids = {id(a) for a in filter_recent_articles(articles, days=days)}
+    exempt = keyword_filter_exempt_sources()
 
     for article in articles:
         article.matched_keywords = matched_ai_keywords(article)
@@ -50,7 +64,7 @@ def explain_selection(days: int = 1) -> list[Article]:
             article.excluded_reason = REASON_NO_DATE
         elif id(article) not in recent_ids:
             article.excluded_reason = f"直近{days}日外"
-        elif not article.matched_keywords:
+        elif not article.matched_keywords and article.source not in exempt:
             article.excluded_reason = REASON_NO_AI_KEYWORD
         else:
             article.excluded_reason = None

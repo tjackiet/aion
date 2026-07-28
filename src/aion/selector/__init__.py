@@ -1,4 +1,4 @@
-from aion.selector.core import collect, explain_selection
+from aion.selector.core import collect, explain_selection, keyword_filter_exempt_sources
 from aion.selector.filters import (
     count_undated_by_source,
     filter_ai_related,
@@ -14,5 +14,6 @@ __all__ = [
     "explain_selection",
     "filter_ai_related",
     "filter_recent_articles",
+    "keyword_filter_exempt_sources",
     "matched_ai_keywords",
 ]
