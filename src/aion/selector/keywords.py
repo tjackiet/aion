@@ -1,18 +1,25 @@
-"""AI関連キーワード定義（記事選定のキーワードフィルタ用）"""
+"""AI関連キーワード定義（記事選定のキーワードフィルタ用）
 
-AI_KEYWORDS = [
-    # 基本用語
-    "AI", "人工知能", "機械学習", "ディープラーニング", "深層学習",
-    # LLM関連
-    "LLM", "大規模言語モデル", "GPT", "Claude", "Gemini", "ChatGPT",
-    "生成AI", "生成系AI", "Copilot", "RAG",
-    # エージェント
-    "AIエージェント", "エージェント", "Agent",
-    # 技術用語
-    "プロンプト", "ファインチューニング", "トランスフォーマー",
-    "ニューラルネットワーク", "自然言語処理", "NLP",
-    # サービス・企業
-    "OpenAI", "Anthropic", "DeepMind", "Hugging Face",
-    # 応用分野
-    "画像生成", "音声認識", "自動運転", "ロボット",
-]
+キーワード本体は config/keywords.yaml で管理する。
+"""
+
+from pathlib import Path
+
+import yaml
+
+
+def load_ai_keywords(config_path: Path | None = None) -> list[str]:
+    """AIキーワードをYAMLから読み込み、カテゴリを平坦化したリストで返す"""
+    if config_path is None:
+        config_path = Path(__file__).parent.parent.parent.parent / "config" / "keywords.yaml"
+
+    with open(config_path) as f:
+        data = yaml.safe_load(f)
+
+    keywords: list[str] = []
+    for category_keywords in data["ai_keywords"].values():
+        keywords.extend(category_keywords)
+    return keywords
+
+
+AI_KEYWORDS = load_ai_keywords()

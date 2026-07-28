@@ -44,7 +44,8 @@ def test_explain_selection_assigns_reasons_per_stage(make_article, monkeypatch):
     result = explain_selection(days=1)
 
     assert passed.excluded_reason is None
-    assert passed.matched_keywords == ["GPT", "ChatGPT"]
+    # "GPT" は "ChatGPT" の内部に単語境界なく現れるためマッチしない（PR3の単語境界マッチ）
+    assert passed.matched_keywords == ["ChatGPT"]
     assert no_date.excluded_reason == "日付なし"
     assert too_old.excluded_reason == "直近1日外"
     assert no_keyword.excluded_reason == "AIキーワード不一致"
