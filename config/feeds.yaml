@@ -1,5 +1,9 @@
 # AION RSS Feed Configuration
 # 対象メディア（6件）
+#
+# ai_filter: 省略時 true。AIキーワードフィルタを適用するか。
+#   配信元がすでにAI分野で絞り込んでいるフィードでは、キーワードの網羅性が
+#   そのまま取りこぼしになるため false にして全件通過させる（日付フィルタは適用される）。
 
 feeds:
   # ビジネス系
@@ -7,6 +11,9 @@ feeds:
     url: "https://rss.itmedia.co.jp/rss/2.0/aiplus.xml"
     category: "business"
     enabled: true
+    # AI専門媒体だが実際には非AI記事も流れてくる（スナップショットではiPhoneのメモリ市況記事）。
+    # 通過率95%でフィルタはほぼ素通しかつ、落としている1件は正しい除外なので免除しない。
+    ai_filter: true
 
   # 開発・技術系
   - name: "Zenn"
@@ -34,3 +41,7 @@ feeds:
     url: "https://rss.arxiv.org/rss/cs.AI"
     category: "research"
     enabled: true
+    # arXiv自身が cs.AI に分類した論文しか流れてこないため、キーワードフィルタは不要。
+    # 適用すると 223件中121件(54%) を落としていた（Agentic/Agents の単語境界落ち、
+    # Diffusion Models・VLM・MLLM・GRPO 等の語彙不足が原因）。
+    ai_filter: false

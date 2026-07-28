@@ -102,6 +102,53 @@ def test_filter_ai_related_excludes_articles_without_keywords(make_article):
     assert result == [ai_article]
 
 
+def test_filter_ai_related_passes_everything_from_exempt_source(make_article):
+    """免除フィードはキーワード0件でも通過すること。"""
+    non_ai = make_article(title="Sparse Matrix Reordering for Cache Locality", source="arXiv CS.AI")
+
+    result = filter_ai_related([non_ai], exempt_sources=frozenset({"arXiv CS.AI"}))
+
+    assert result == [non_ai]
+
+
+def test_filter_ai_related_still_filters_non_exempt_sources(make_article):
+    """免除は指定した情報源にだけ効き、他フィードのフィルタは維持されること。"""
+    exempt_non_ai = make_article(title="今日の天気", source="arXiv CS.AI")
+    other_non_ai = make_article(title="今日の天気", source="Zenn")
+    other_ai = make_article(title="ChatGPTの新機能", source="Zenn")
+
+    result = filter_ai_related(
+        [exempt_non_ai, other_non_ai, other_ai],
+        exempt_sources=frozenset({"arXiv CS.AI"}),
+    )
+
+    assert result == [exempt_non_ai, other_ai]
+
+
+def test_filter_ai_related_defaults_to_no_exemption(make_article):
+    """exempt_sources 未指定時は従来どおり全フィードにフィルタが掛かること（回帰防止）。"""
+    non_ai = make_article(title="今日の天気", source="arXiv CS.AI")
+
+    assert filter_ai_related([non_ai]) == []
+
+
+def test_agent_word_boundary_gap_is_covered_by_exemption(make_article):
+    """免除が必要になった具体的な取りこぼし。
+
+    'Agentic' / 'Agents' は単語境界マッチで 'Agent' に当たらない。日本語の
+    'エージェント' はCJKなので境界条件が課されずマッチするため、英語だけが厳しい
+    非対称が残っている。この非対称そのものの解消は別途扱い、ここでは免除で
+    arXiv の取りこぼしが解消されることだけを固定する。
+    """
+    article = make_article(
+        title="IDEAgent: Agentic Quality-Diversity Search for Research Idea Generation",
+        source="arXiv CS.AI",
+    )
+
+    assert matched_ai_keywords(article) == []
+    assert filter_ai_related([article], exempt_sources=frozenset({"arXiv CS.AI"})) == [article]
+
+
 def test_count_undated_by_source(make_article):
     a1 = make_article(source="Zenn", published_offset=None)
     a2 = make_article(source="Zenn", published_offset=None)

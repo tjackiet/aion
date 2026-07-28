@@ -23,6 +23,7 @@ class Article(BaseModel):
     # 選定ロジックの可視化用フィールド（--explain で利用）
     matched_keywords: list[str] = Field(default_factory=list, description="マッチしたAIキーワード")
     excluded_reason: str | None = Field(None, description="選定から除外された理由（通過時はNone）")
+    score: float = Field(0.0, description="選定スコア（大きいほど優先。aion.selector.scoring 参照）")
 
 
 class FeedConfig(BaseModel):
@@ -32,6 +33,9 @@ class FeedConfig(BaseModel):
     url: str
     category: str
     enabled: bool = True
+    # フィード自体がAI分野に限定されている場合は False にする。
+    # その情報源はAIキーワードフィルタを適用せず全件通過させる（日付フィルタは適用される）。
+    ai_filter: bool = True
 
 
 class FeedsConfig(BaseModel):
